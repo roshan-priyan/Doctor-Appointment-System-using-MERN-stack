@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Account | VelloreClinic</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        body {
+            display: grid;
+            place-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            font-family: 'Poppins', sans-serif;
+        }
+        .signup-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            padding: 2.5rem;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            max-width: 420px;
+            color: white;
+            text-align: center;
+        }
+        .form-group { text-align: left; margin-bottom: 1.2rem; }
+        .form-group label { display: block; margin-bottom: 5px; font-size: 0.85rem; color: #94a3b8; }
+        .form-group input, .role-select {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 12px;
+            border-radius: 12px;
+            color: white;
+            outline: none;
+            box-sizing: border-box;
+        }
+        .role-select option { background: #1e293b; color: white; }
+        .signup-btn {
+            width: 100%;
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background 0.3s;
+        }
+        .signup-btn:hover { background: #4338ca; }
+    </style>
+</head>
+<body>
+
+<div class="signup-card">
+    <div style="font-size: 2rem; color: #4f46e5;"><i class="ri-user-add-line"></i></div>
+    <h2>Join VelloreClinic</h2>
+    <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 2rem;">Create your profile</p>
+    
+    <form id="signupForm">
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="fullName" placeholder="John Doe" required>
+        </div>
+
+        <div class="form-group">
+            <label>Register As</label>
+            <select id="regRole" class="role-select" required>
+                <option value="Patient">🏥 Patient</option>
+                <option value="Doctor">👨‍⚕️ Doctor</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="email" placeholder="john@example.com" required>
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="password" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" id="submitBtn" class="signup-btn">Create Account</button>
+    </form>
+    
+    <p style="margin-top: 1.5rem; font-size: 0.85rem; color: #94a3b8;">
+        Already have an account? <a href="login.html" style="color: #4f46e5; text-decoration: none;">Login</a>
+    </p>
+</div>
+
+<script type="module" src="js/signup.js"></script>
+</body>
+</html>

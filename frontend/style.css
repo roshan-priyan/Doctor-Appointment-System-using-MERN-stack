@@ -1,0 +1,296 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f4f7fe;
+    display: flex;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background: linear-gradient(180deg, #1e293b, #111827);
+    color: white;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.brand {
+    font-size: 20px;
+    font-weight: 600;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.nav-link {
+    display: block;
+    padding: 12px;
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 10px;
+    transition: 0.3s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background: rgba(255,255,255,0.1);
+}
+
+.user-card {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.avatar {
+    background: #2d8cff;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+/* Main */
+.main {
+    flex: 1;
+    padding: 40px;
+}
+
+.top h1 {
+    font-size: 26px;
+}
+
+.top span {
+    color: #2d8cff;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    margin-top: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+/* Form */
+.grid {
+    display: grid;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+select, input {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+button {
+    padding: 12px;
+    background: linear-gradient(135deg, #2d8cff, #00c6a7);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: translateY(-3px);
+}
+
+/* Appointment Cards */
+.appointments {
+    margin-top: 20px;
+    display: grid;
+    gap: 15px;
+}
+
+.appointment-card {
+    background: #f9fafc;
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.appointment-card:hover {
+    transform: translateY(-4px);
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.approved {
+    background: #d4edda;
+    color: #155724;
+}
+
+.cancelled {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* Responsive */
+@media(max-width:900px) {
+    .sidebar {
+        display: none;
+    }
+}
+/* Update your style.css with these professional tweaks */
+:root {
+    --sidebar-w: 280px;
+    --primary: #4f46e5;
+}
+
+body {
+    background-color: #f8fafc;
+    color: #1e293b;
+    font-family: 'Poppins', sans-serif;
+}
+
+.sidebar {
+    width: var(--sidebar-w);
+    background: #0f172a;
+    color: white;
+    height: 100vh;
+    position: fixed;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.main {
+    margin-left: var(--sidebar-w);
+    padding: 3rem;
+    width: calc(100% - var(--sidebar-w));
+}
+
+.card {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+    border: 1px solid #e2e8f0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+.timeline {
+    position: relative;
+    padding-left: 30px;
+    border-left: 2px solid #4f46e5;
+}
+.timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+}
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -37px;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    background: #4f46e5;
+    border-radius: 50%;
+    border: 3px solid #0f172a;
+}
+/* Time Slot Buttons */
+#timeSlotContainer { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.slot-btn {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05);
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.slot-btn.available:hover { background: #4f46e5; border-color: #4f46e5; }
+.slot-btn.selected { background: #4f46e5; border-color: #6366f1; box-shadow: 0 0 10px rgba(79, 70, 229, 0.4); }
+.slot-btn.booked { opacity: 0.3; cursor: not-allowed; background: #1e293b; color: #64748b; }
+
+/* Status Badges */
+.badge { padding: 4px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; }
+.badge.pending { background: rgba(251, 191, 36, 0.2); color: #fbbf24; }
+.badge.confirmed { background: rgba(52, 211, 153, 0.2); color: #34d399; }
+.badge.cancelled { background: rgba(248, 113, 113, 0.2); color: #f87171; }
+
+/* Appointment Card Status Line */
+.status-indicator { width: 4px; border-radius: 4px; margin-right: 12px; }
+.status-indicator.status-pending { background: #fbbf24; }
+.status-indicator.status-confirmed { background: #34d399; }
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: rgba(255,255,255,0.05);
+    padding: 20px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.stat-card i { font-size: 2rem; color: #4f46e5; }
+
+.slot-generator-ui {
+    display: flex;
+    gap: 10px;
+    background: rgba(255,255,255,0.02);
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.add-slot-btn {
+    background: #10b981;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* Appointment Action Buttons */
+.btn-confirm { background: #10b981; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.btn-cancel { background: rgba(244, 63, 94, 0.1); color: #f43f5e; border: 1px solid #f43f5e; padding: 6px 12px; border-radius: 6px; cursor: pointer; margin-left: 5px; }
+/* Chat specific styles */
+.message { max-width: 75%; padding: 10px 15px; border-radius: 15px; font-size: 0.9rem; margin-bottom: 5px; }
+.message.sent { align-self: flex-end; background: var(--primary); color: white; border-bottom-right-radius: 2px; }
+.message.received { align-self: flex-start; background: #334155; color: white; border-bottom-left-radius: 2px; }
+.message small { display: block; font-size: 0.7rem; margin-top: 5px; opacity: 0.7; }
+
+.chat-doc-item { padding: 12px; border-radius: 10px; cursor: pointer; margin-bottom: 8px; border: 1px solid transparent; }
+.chat-doc-item:hover { background: rgba(255,255,255,0.05); }
+.chat-doc-item.active { background: var(--glass); border-color: var(--primary); color: white; }

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VelloreClinic | Premium Patient Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.3);
+            --secondary: #0f172a;
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.2);
+            --danger: #f43f5e;
+            --glass: rgba(30, 41, 59, 0.7);
+            --border: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body { 
+            font-family: 'Inter', system-ui, -apple-system, sans-serif; 
+            background: radial-gradient(circle at top right, #1e1b4b, #0f172a);
+            color: var(--text-main); 
+            height: 100vh; 
+            display: flex; 
+            overflow: hidden; 
+        }
+
+        /* Sidebar Glassmorphism */
+        .sidebar { 
+            width: 280px; 
+            background: var(--glass); 
+            backdrop-filter: blur(12px);
+            padding: 30px 20px; 
+            display: flex; 
+            flex-direction: column; 
+            border-right: 1px solid var(--border);
+            z-index: 100;
+        }
+
+        .brand { 
+            font-size: 26px; 
+            font-weight: 800; 
+            color: white; 
+            margin-bottom: 40px; 
+            display: flex; 
+            align-items: center; 
+            gap: 12px;
+            letter-spacing: -0.5px;
+        }
+        .brand i { color: var(--primary); font-size: 32px; filter: drop-shadow(0 0 8px var(--primary-glow)); }
+
+        .nav-link { 
+            padding: 14px 18px; 
+            margin-bottom: 10px; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            color: var(--text-dim); 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .nav-link:hover { background: rgba(255,255,255,0.05); color: white; }
+        .nav-link.active { 
+            background: var(--primary); 
+            color: white; 
+            box-shadow: 0 10px 20px -5px var(--primary-glow);
+        }
+
+        .logout { 
+            margin-top: auto; 
+            padding: 14px; 
+            border-radius: 12px; 
+            background: rgba(244, 63, 94, 0.1); 
+            color: var(--danger);
+            text-align: center; 
+            cursor: pointer; 
+            font-weight: 600;
+            transition: 0.3s;
+            border: 1px solid rgba(244, 63, 94, 0.2);
+        }
+        .logout:hover { background: var(--danger); color: white; }
+
+        /* Main Content */
+        .main { flex: 1; padding: 40px; overflow-y: auto; scroll-behavior: smooth; }
+        
+        h2 { font-size: 28px; font-weight: 700; margin-bottom: 30px; letter-spacing: -0.5px; }
+
+        .card { 
+            background: var(--glass); 
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border); 
+            border-radius: 24px; 
+            padding: 30px; 
+            margin-bottom: 25px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Stats Grid */
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 35px; }
+        .stat-box { 
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+            padding: 25px; 
+            border-radius: 22px; 
+            border: 1px solid var(--border); 
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-box h3 { font-size: 32px; font-weight: 800; color: white; margin-bottom: 4px; }
+        .stat-box p { color: var(--text-dim); font-size: 14px; font-weight: 500; }
+        .stat-box::after {
+            content: ""; position: absolute; top: -50%; right: -20%; width: 100px; height: 100px;
+            background: var(--primary); filter: blur(60px); opacity: 0.15;
+        }
+
+        /* Doctor List Grid */
+        .doctor-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .dr-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+        .dr-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.06); border-color: var(--primary); }
+
+        /* Appointment Table */
+        .appointment-item { 
+            padding: 20px; 
+            background: rgba(255,255,255,0.02);
+            border-radius: 16px;
+            margin-bottom: 12px;
+            display: grid; 
+            grid-template-columns: 1.5fr 1fr 1fr; 
+            align-items: center; 
+            border: 1px solid transparent;
+            transition: 0.3s;
+        }
+        .appointment-item:hover { border-color: var(--border); background: rgba(255,255,255,0.04); }
+
+        /* Modern Inputs */
+        input, textarea, select { 
+            width: 100%; padding: 14px; margin-bottom: 18px; border-radius: 12px; 
+            border: 1px solid var(--border); background: rgba(0,0,0,0.2); 
+            color: white; font-size: 15px; transition: 0.3s;
+        }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-glow); outline: none; }
+
+        /* Professional Status Badges */
+        .badge { padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; display: inline-block; }
+        .badge-pending { color: #fbbf24; background: rgba(251, 191, 36, 0.1); }
+        .badge-confirmed { color: #34d399; background: rgba(52, 211, 153, 0.1); }
+
+        /* Buttons */
+        button { 
+            padding: 14px 24px; border: none; border-radius: 12px; 
+            background: var(--primary); color: white; cursor: pointer; 
+            font-weight: 600; transition: all 0.3s;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        button:hover { filter: brightness(1.1); transform: translateY(-2px); box-shadow: 0 8px 20px var(--primary-glow); }
+        
+        .btn-pay-big { background: var(--accent) !important; box-shadow: 0 8px 20px var(--accent-glow) !important; }
+
+        /* Modal Blur */
+        .modal-overlay {
+            position: fixed; top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
+            display: none; justify-content: center; align-items: center; z-index: 1000;
+        }
+
+        /* Prescription Design */
+        #prescriptionText {
+            font-family: 'Courier New', Courier, monospace;
+            background: #000; padding: 25px; border-radius: 15px; border: 1px dashed #334155;
+            color: #10b981; line-height: 1.6;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="brand"><i class="ri-pulse-fill"></i>VelloreClinic</div>
+    <div class="nav-link active" onclick="showTab('dashboard', this)"><i class="ri-home-5-line"></i> Dashboard</div>
+    <div class="nav-link" onclick="showTab('appointments', this)"><i class="ri-calendar-check-line"></i> Appointments</div>
+    <div class="nav-link" onclick="showTab('profile', this)"><i class="ri-user-heart-line"></i> Health Profile</div>
+    <div class="logout" onclick="logout()"><i class="ri-shut-down-line"></i> Logout</div>
+</div>
+
+<div class="main">
+    <div id="dashboardTab">
+        <h2>Greetings, <span id="patientNameDisplay" style="color: var(--primary);">Patient</span>!</h2>
+        
+        <div class="stats">
+            <div class="stat-box">
+                <p>Total Visits</p>
+                <h3 id="statTotal">0</h3>
+            </div>
+            <div class="stat-box">
+                <p>Scheduled</p>
+                <h3 id="statUpcoming">0</h3>
+            </div>
+        </div>
+
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                <h3 style="font-size: 20px;"><i class="ri-user-search-line"></i> Find a Specialist</h3>
+                <span style="font-size: 12px; color: var(--text-dim);">Available Today</span>
+            </div>
+            <div id="doctorList" class="doctor-grid">
+                </div>
+        </div>
+    </div>
+
+    <div id="appointmentsTab" style="display:none;">
+        <div class="card">
+            <h3 style="margin-bottom: 25px;">Appointment Timeline</h3>
+            <div style="display:grid; grid-template-columns: 1.5fr 1fr 1fr; padding: 0 20px 10px; color: var(--text-dim); font-size: 12px; font-weight: 600;">
+                <span>DOCTOR & SCHEDULE</span>
+                <span>STATUS</span>
+                <span>ACTIONS</span>
+            </div>
+            <div id="appointmentList">
+                </div>
+        </div>
+    </div>
+
+    <div id="profileTab" style="display:none;">
+        <div class="card">
+            <h3><i class="ri-shield-user-line"></i> Medical Identity</h3>
+            <br>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div><label>Legal Name</label><input type="text" id="nameInput"></div>
+                <div><label>Verified Email</label><input type="email" id="emailInput" readonly></div>
+            </div>
+
+            <h3 style="margin: 30px 0 20px;"><i class="ri-microscope-line"></i> Vitals & History</h3>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;">
+                <div><label>Blood</label><input type="text" id="p-blood" placeholder="e.g. O+"></div>
+                <div><label>Age</label><input type="number" id="p-age"></div>
+                <div><label>Height (cm)</label><input type="number" id="p-height"></div>
+                <div><label>Weight (kg)</label><input type="number" id="p-weight"></div>
+            </div>
+
+            <label style="margin-top: 15px;">Chronic Conditions or Allergies</label>
+            <textarea id="p-disease" rows="3" placeholder="List any known allergies or medical history..."></textarea>
+
+            <button onclick="saveProfile()" style="margin-top: 10px; width: 200px;">
+                <i class="ri-checkbox-circle-line"></i> Update Profile
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="bookingModal" class="modal-overlay">
+    <div class="card" style="width:450px; background: #1e293b;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:25px;">
+            <h3 id="modalDrName">Book Specialist</h3>
+            <i class="ri-close-circle-fill" onclick="closeModal()" style="cursor:pointer; font-size:24px; color: var(--text-dim);"></i>
+        </div>
+        
+        <label>Select Visit Day</label>
+        <select id="appointmentDay" onchange="loadDoctorSlots()">
+            <option value="mon">Monday</option>
+            <option value="tue">Tuesday</option>
+            <option value="wed">Wednesday</option>
+            <option value="thu">Thursday</option>
+            <option value="fri">Friday</option>
+            <option value="sat">Saturday</option>
+            <option value="sun">Sunday</option>
+        </select>
+
+        <label>Select Time Slot</label>
+        <div id="slotsGrid" style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:25px;"></div>
+
+        <button id="confirmBookingBtn" onclick="confirmBooking()" style="width:100%; background:var(--accent);" disabled>
+            Request Appointment
+        </button>
+    </div>
+</div>
+
+<div id="viewPrescriptionModal" class="modal-overlay">
+    <div class="card" style="width:500px; border-top: 4px solid var(--primary);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <h3><i class="ri-medicine-bottle-line"></i> Medical Rx</h3>
+            <i class="ri-close-line" onclick="closePrescriptionModal()" style="cursor:pointer; font-size:24px;"></i>
+        </div>
+        <div id="prescriptionText"></div>
+        <button onclick="window.print()" style="margin-top: 20px; width: 100%; background: #334155;">
+            <i class="ri-printer-line"></i> Print Receipt
+        </button>
+    </div>
+</div>
+
+<div id="paymentModal" class="modal-overlay" style="background: rgba(0,0,0,0.85);">
+    <div class="card" style="width:380px; text-align:center; border: 1px solid var(--accent);">
+        <div style="background:var(--accent-glow); width:70px; height:70px; border-radius:24px; display:flex; align-items:center; justify-content:center; margin:0 auto 20px;">
+            <i class="ri-bank-card-2-line" style="font-size:32px; color:var(--accent);"></i>
+        </div>
+        <h2 style="margin-bottom:8px;">Checkout</h2>
+        <p style="color:var(--text-dim); font-size:14px; margin-bottom:25px;">Consultation with <span id="payDrName" style="color:white; font-weight:600;">...</span></p>
+
+        <div style="background:rgba(255,255,255,0.03); padding:25px; border-radius:20px; margin-bottom:25px;">
+            <span style="color:var(--text-dim); font-size:12px; text-transform:uppercase; letter-spacing:1px;">Processing Fee</span>
+            <div style="font-size:36px; font-weight:800; color:var(--accent); margin-top:5px;">
+                ₹<span id="payAmountDisplay">0</span>
+            </div>
+        </div>
+
+        <button onclick="processPayment()" class="btn-pay-big" style="width:100%; font-size:16px; padding:18px;">
+            <i class="ri-lock-line"></i> PAY SECURELY
+        </button>
+        <p onclick="document.getElementById('paymentModal').style.display='none'" style="margin-top: 20px; color: var(--text-dim); cursor: pointer; font-size: 13px;">Cancel Transaction</p>
+    </div>
+</div>
+
+<script>
+    function showTab(tabId, element) {
+        ['dashboardTab', 'appointmentsTab', 'profileTab'].forEach(t => document.getElementById(t).style.display = 'none');
+        document.getElementById(tabId + 'Tab').style.display = 'block';
+        document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+        element.classList.add('active');
+    }
+
+    function closeModal() { document.getElementById('bookingModal').style.display = 'none'; }
+    function closePrescriptionModal() { document.getElementById('viewPrescriptionModal').style.display = 'none'; }
+    
+    function logout() {
+        localStorage.clear();
+        window.location.href = "login.html";
+    }
+</script>
+
+<script type="module" src="js/patient.js"></script>
+
+</body>
+</html>
